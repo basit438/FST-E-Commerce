@@ -7,15 +7,19 @@ app.use(express.urlencoded({ extended: true }));
 
 const db = require("./config/mongoose-connection");
 const path = require("path");
+
+const sellersRouter = require("./routes/sellersRouter");
+const usersRouter = require("./routes/usersRouter");
+const productsRouter = require("./routes/productsRouter");
 app.use(express.static(path.join(__dirname, "public")));
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
 app.set("view engine", "ejs");
 
-app.get("/", (req, res) => {
-    res.render("index");
-});
+app.use("/sellers" , sellersRouter);
+app.use("/users" , usersRouter);
+app.use("/products" , productsRouter);
 
 
 app.listen(3000, () => {
